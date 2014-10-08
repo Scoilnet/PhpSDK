@@ -1,0 +1,10 @@
+
+{% if (resource.urls) %}
+<a class="pageview"  href="{{resource.urls|first}}" title="Link to {{ resource.title }}" target="_blank">
+    <span class="r_format_{% if(resource.format)  %}{{resource.format.id|first}}{% endif %} r_format"></span> 
+    {{ resource.title }}
+</a>
+{% else %}
+    <span class="r_format_{% if(resource.format)  %}{{resource.format.id|first}}{% endif %} r_format"></span> 
+    {{ resource.title }}
+{% endif %} 

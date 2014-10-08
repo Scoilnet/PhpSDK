@@ -1,0 +1,253 @@
+
+{% set resourceCurriculumGrouped = resource.curriculum|groupcurriculum %}
+<div class="resource">
+    <div class="row">
+        <div class="large-8 columns">                                
+            <div class="r_text">
+                <h3 class="r_title">
+                        {% include 'resource.title.format.twig'  %}
+                       
+                </h3>
+                <small class="r_url">
+                    {% if (resource.resourceGeneralDescriptionByLanguage(lang).firstResourceItem.resourceUri) %}
+                        <a class="pageview" data-resid="{{resource.id}}" href="{{resource.resourceGeneralDescriptionByLanguage(lang).firstResourceItem.resourceUri}}" title="Link to {{ resource.resourceGeneralDescriptionByLanguage(lang).title }}" target="_blank">
+                          {# {{resource.resourceGeneralDescriptionByLanguage(lang).firstResourceItem.resourceUri|urlFormat}} #}
+                        </a>
+                   {% elseif(resource.resourceGeneralDescriptionByLanguage(lang).firstResourceItem.resourceFile) %}
+                        <a class="pageview" data-resid="{{resource.id}}"  href="{{resource.resourceGeneralDescriptionByLanguage(lang).firstResourceItem.webPath}}" title="Link to {{ resource.resourceGeneralDescriptionByLanguage(lang).title }}">
+                           {# {{ base_url ~ resource.resourceGeneralDescriptionByLanguage(lang).firstResourceItem.webPath|urlFormat}} #}
+                        </a>
+                   {% endif %}
+                </small>            
+                <small class="r_date">Added: {{ resource.creation_date|date("d M Y") }}</small> 
+                <small class="r_author">Contributor: 
+                    {{ resource.author }}
+                </small>
+                <small class="r_type">Resource type:
+                    {% for resourceType in resource.types %}
+                        {% if(loop.first == false)%}
+                            /
+                        {% endif %}
+                        {{resourceType.title |title}}
+                        
+                    {% endfor %}
+                </small>
+                <p class="r_excerpt short">{{ resource.description }}</p>
+                <a class="r_viewfull-button">View full description <span class="icon icon-caret-down"></span></a>
+
+            </div>
+        </div>
+        <div class="large-4 columns">
+
+            <div class="r_meta"> 
+                <div id="r_sharing_{{ resource.id }}" class="r_sharing_{{ resource.id }}" data-resid="{{ resource.id }}">
+                    
+                </div>
+                <div class="r_curriculum curr_compact">
+                     {% for resourceCurriculumDisciplineGrade in  resourceCurriculumGrouped%}
+                        <div class="r-curr-item">
+                            {% for grade in resourceCurriculumDisciplineGrade.grade %}
+                                <span class="curr_level curr_{{grade.abbr|lower}}" title="{{grade.title}}">{{grade.abbr}}</span>
+                            {% endfor %}
+                            <span class="curr_subject" title="Subject">{{resourceCurriculumDisciplineGrade.subject.title}}</span>
+                        </div>
+                     {% endfor %}
+                </div>
+                
+            </div>
+        </div>
+    </div>                        
+    <div class="row r_fulldescription is_closed">
+        <div class="large-8 columns">
+            <div class="r_fullcurriculum">
+                <div class="r_curriculum">
+                    <h4 class="r_curr-heading">How it maps to the curriculum</h4>
+                    {% for disciplineId,resourceCurriculumDisciplineGrade in resourceCurriculumGrouped %}
+                        <div class="r-curr-item is_open">
+                            <div class="r_accordion_header">
+                                <span class="icon icon-caret-down" title="Hide"></span><span class="icon icon-caret-right hide" title="Show"></span>
+                                <dl class="tabs" data-tab>
+                                  {% for grade in resourceCurriculumDisciplineGrade.grade %}
+                                        <dd class="{% if(loop.first)%}active{%endif%}">
+                                            <a href="#panel{{disciplineId}}-{{grade.id}}">
+                                                <span title="{{grade.title}}" class="curr_level curr_{{grade.abbr|lower}}">{{grade.abbr}}</span>
+                                            </a>
+                                        </dd>
+                                  {% endfor %}
+                                  <dd><span title="Subject" class="curr_subject">{{resourceCurriculumDisciplineGrade.subject.title}}</span></dd>
+                                </dl>
+                            </div>
+                            <div class="tabs-content">
+                             {% for gradeid,gradeCurriculum in resourceCurriculumDisciplineGrade.curriculum %}   
+                                <div class="content {% if(loop.first)%}active{%endif%}" id="panel{{disciplineId}}-{{gradeid}}">
+                                    {% for curriculum in gradeCurriculum %}
+                                        
+                                      {% if(loop.first == false)%}
+                                         <hr />
+                                      {%endif%}
+                                            
+                                      {% if(curriculum.strand) %}
+                                        <div title="Strand" class="curr_strand">
+                                          <p><strong class="r_term">Strand:</strong> {{curriculum.strand.title}}</p>
+                                        </div>
+                                       {% endif %}
+                                       {% if(curriculum.strandunit) %}
+                                            <div title="Strand Unit" class="curr_strand">
+                                                <p><strong class="r_term">Strand unit:</strong> {{curriculum.strandunit.title}}</p>
+                                            </div>
+                                        {% endif %}
+                                        
+                                        {% if(curriculum.content_objective|length > 0) %}
+                                            <div class="curr_contentobjective">
+                                                <p><strong class="r_term">Content objective:</strong></br>
+                                                       {% if(curriculum.contentObjectiveType) %}
+                                                           {% set objectiveType = curriculum.contentObjectiveType|lower %}
+                                                       {% else %}
+                                                           {% set objectiveType = 'enables' %}
+                                                       {% endif %} 
+                                                     Objective Type</p>
+                                                <ul>
+                                                    {% for resourceContentObjective in curriculum.content_objective %}
+                                                        <li>{{resourceContentObjective.title}}</li>
+                                                    {% endfor %}
+                                                </ul>
+                                           </div>
+                                        {% endif %}
+                                        {% if(curriculum.suggestions_for_use|length > 0) %}
+                                            {% if(curriculum.suggestions_for_use.title) %}
+                                                <div class="curr_suggested_use">
+                                                    <p>
+                                                        <strong class="r_term">Suggestions for use: </strong>
+
+                                                        {{curriculum.suggestions_for_use.title}}
+                                                    </p>
+                                                </div> 
+                                            {% endif %}
+                                        {% endif %}
+                                        
+                                        {% if(curriculum.key_skills|length > 0) %}
+                                                <div class="curr_key_skills">
+                                                    <p>
+                                                        <span class="icon icon-comment-alt"></span> 
+                                                        <strong class="r_term">Key Skills:</strong>
+                                                             {% for resourceKeySkills in curriculum.key_skills %}
+                                                                {{resourceKeySkills.title}}
+                                                             {% endfor %}
+                                                    </p>
+                                                </div> 
+                                        {% endif %}
+                                        
+                                     {% endfor %}
+                                </div> 
+                             {% endfor %} 
+                            </div>
+                        </div><!-- END -->
+                    {% endfor %}
+                </div>
+
+            </div>
+
+        </div>
+        <div class="large-4 columns">
+            <div class="r_report_link"><a href="mailto:report@scoilnet.ie?subject=Report resource id {{ resource.id}}" target="_blank"><span class="icon icon-ban-circle"></span> Report this resource</a></div>
+
+            <div class="r_meta">
+                    <div class="r_asset r_meta_item">
+                        <strong class="r_term">Asset type:</strong> 
+                        {% if(resource.format)  %}
+                            {{resource.format.title}}
+                        {% endif %}
+                    </div>
+                    {% if(resource.language|length > 0) %}
+                    <div class="r_language r_meta_item">
+                        <strong class="r_term">Language:</strong> 
+                        {% for resourceLanguage in resource.language %}
+                            {% if(loop.first == false)%}
+                                ,
+                            {% endif %}
+                            {{resourceLanguage.title}}
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                    
+                    {% if(resource.rights) %}
+
+                        {% if(resource.rights.licence) %}
+                            <div class="r_rights r_meta_item">
+                                <strong class="r_term">Rights:</strong> {{resource.rights.licence.title}}
+                            </div>
+                        
+                            {% if(resource.rights.licence.id == 1) %}
+                                {% if(resource.rights.licence.url) %}
+                                    <div class="r_rights r_meta_item">
+                                        <strong class="r_term">Rights Url:</strong> <a href="{{resource.rights.licence.url}}" alt="Resources rights url">{{resource.rights.licence.url}}</a>
+                                    </div>
+                                {% endif %}
+                            {% endif %}
+                        {% endif %}
+                        <div class="r_cost r_meta_item">
+                            <strong class="r_term">Cost:</strong> {% if(resource.rights.cost > 0) %}Yes{% else %}No{% endif %}
+                        </div>
+                    {% endif %}
+                    
+                        <div class="r_sen r_meta_item">
+                            <strong class="r_term">Special Needs:</strong>
+                            <br />
+                            {% if(resource.special_needs.access_mode|length > 0) %}
+                              Access Mode
+                              {% for resourceSenAccessMode in resource.special_needs.access_mode %}
+                                      {{resourceSenAccessMode.title}} <br />
+                              {% endfor %}
+                            {% endif %}
+
+                            {% if(resource.special_needs.adaptation_media_type|length > 0) %}
+                                Adaptation Media Type
+                                {% for resourceSenAdaptationMediaType in resource.special_needs.adaptation_media_type %}
+                                        {{resourceSenAdaptationMediaType.title}} <br />
+                                {% endfor %}
+                            {% endif %}
+
+                            {% if(resource.special_needs.adaptation_type|length > 0) %}
+                                Adaptation Type
+                                {% for resourceSenAdaptationType in resource.special_needs.adaptation_type %}
+                                        {{resourceSenAdaptationType.title}} <br />
+                                {% endfor %}
+                            {% endif %}
+
+                            {% if(resource.special_needs.control_flexibility|length > 0) %}
+                                Control Flexibility
+                                {% for resourceSenControlFlexibility in resource.special_needs.control_flexibility %}
+                                        {{resourceSenControlFlexibility.title}} <br />
+                                {% endfor %}
+                            {% endif %} 
+
+                            {% if(resource.special_needs.display_transformability|length > 0) %}
+                                Display Transformability
+                                {% for resourceSenDisplayTransformability in resource.special_needs.display_transformability %}
+                                        {{resourceSenDisplayTransformability.title}} <br />
+                                {% endfor %}
+                            {% endif %}
+
+                            {% if(resource.special_needs.hazard|length > 0) %}
+                                Hazard
+                                {% for resourceSenHazard in resource.special_needs.hazard %}
+                                        {{resourceSenHazard.title}} <br />
+                                {% endfor %}
+                            {% endif %}
+                            <br />
+                            {% if(resource.special_needs.educational_complexity) %}
+                                  Educational Complexity 
+                                  {{resource.special_needs.educational_complexity.title}}
+                            {% endif %}
+
+
+                        </div>
+                    
+                    
+            </div>
+        </div>
+        <div class="medium-12 columns">
+            <a href="#" class="r_closefull-button">Close full description <span class="icon icon-caret-up"></span></a>
+        </div>
+    </div>
+</div>

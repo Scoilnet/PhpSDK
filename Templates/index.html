@@ -1,0 +1,219 @@
+{% extends "base.html.twig" %}            
+{% block content %}
+
+
+        <header class="listing">
+            <div class="row collapse">
+                <div class="large-2 columns"><h2>Resource List</h2></div>
+                <div class="large-8 columns">
+                    <div class="mainsearch">
+                     <form method="get" action="/">
+                        <div class="row hidden"></div>
+                        <div class="row collapse">        
+                        <div class="large-8 columns"><label for="form_q">Search</label>
+                        {% if(params.q) %}
+                            {% set searchValue = params.q %}
+                        {% else %}
+                            {% set searchValue = '' %}
+                        {% endif %}
+                        <input type="text" id="form_q" name="q" placeholder="Type here to search" value="{{searchValue}}"/></div>
+                           
+                        <div class="large-4 columns"><button type="submit" id="form_search" name="search" class="tiny button secondary">Search Resources</button></div>                        
+                        </div>
+                    </form>
+                    </div>                    
+                </div>
+                <div class="large-2 columns"></div>
+            </div>
+        </header>
+
+    <div class="main">
+
+        
+    <div class="panel">
+        <div class="row">            
+            <div class="count large-6 columns">
+                <p>Total Count: {{ results.totalResults }}</p>
+            </div>
+            {# display navigation #}
+            <div class="navigation large-6 columns text-right">
+                
+                 {{ results.totalResults|pagination(currentPage)|raw }}
+               
+            </div>
+        </div>
+    </div>  
+    <div class="row">
+        <div class="large-12 columns">
+            <div class="right">
+                {% set sortValue =  params.sort %}
+                {% if(sortValue == 'score') %}
+                    {% set creationDateClsClass = '' %}
+                    {% set relevenceClsClass = 'selected' %}
+                {% else %}
+                    {% set creationDateClsClass = 'selected' %}
+                    {% set relevenceClsClass = '' %}
+                {% endif %}
+                <ul class="inline-list">
+                    <li>Sort By:</li>
+                    <li class="{{relevenceClsClass}}"><a  href="{{ path(route, params | merge({ 'sort': 'score' })) }}">Relevance</a></li>
+                    <li class="{{creationDateClsClass}}"><a  href="{{ path(route, params | merge({ 'sort': 'creation_date' })) }}">Date Created</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="large-2 columns">
+            <div class="facets">
+                    
+            {% for labelFacet, searchFacet in results.facets %}
+                {% if searchFacet|length > 0 %}
+                    {% if(labelFacet == 'strand' ) or (labelFacet == 'strandunit' )%}
+                        {% set active = '' %}
+                    {% else %}
+                        {% set active = 'true' %}
+                    {% endif %}
+                    {{ block('facet_checkbox_widget') }}
+                {% endif %}
+            {% endfor %}
+            </div>
+        </div>   
+        <div class="large-10 columns">
+            <table class="records_list">
+                <thead>
+                    <tr>
+                        <th  class="id_column">ID</th>
+                        <th>Record</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for resource in results.results %}
+                    <tr>
+                        <td  class="id_column">{{ resource.id }}</td>
+                        <td>
+                                {% include 'resource.widget.twig'  %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div> 
+    </div>
+</div>
+
+{% endblock %}                 
+
+
+ 
+{% block facet_radio_widget %}
+{% spaceless %}
+    <div class="section-container accordion keyskills-wrapper" data-section="accordion">
+         <section class="active">
+          <p class="title" data-section-title><a href="#">{{labelFacet}}</a></p>
+             <div class="content" data-section-content>
+                    {% set allFacetSelected = 'selected' %}
+                    {% set allFacetKey = '' %}
+                    {% set allCount = 0 %}
+                    {% for facetKey, facet in searchFacet %}
+                        {% set allCount = allCount + facet.count %}
+                        {% set allFacetKey = facet.facetKey %}
+                        {% if(facet.selected) %}
+                             {% set allFacetSelected = '' %}
+                        {% endif %}
+                   {% endfor %}
+                     <ul class="no-bullet">
+                         <li>
+                            <a class="radio_facet {{allFacetSelected}}" href="{{ path(route, params) }}">All ({{allCount}})</a>
+                        </li>
+                        {% for facetKey, facet in searchFacet %}
+                             {% if facet.entity %}
+                                 {% if(facet.selected) %}
+                                     <li><a class="radio_facet selected" href="{{ path(route, params | merge({ (facet.facetKey): facet.entity.id })) }}">{{facet.entity.title}} ({{facet.count}})</a></li>
+                                {% else %}
+                                     <li><a class="radio_facet" href="{{ path(route, params | merge({ (facet.facetKey): facet.entity.id })) }}">{{facet.entity.title}} ({{facet.count}})</a></li>
+                                {% endif %}
+                              {% endif %}
+                        {% endfor %}
+                    </ul>
+            </div>
+         </section>
+        </div>
+
+{% endspaceless %}
+{% endblock facet_radio_widget %}
+
+{% block facet_radio_horizontal_widget %}
+{% spaceless %}
+    <ul class="inline-list filters">
+        <li><strong>Label Facet</strong></li>
+
+        {% if(removeParams is defined) %}
+            {% for paramName in removeParams %}
+                
+                {% set params = params %}
+                {# {% set params = params|craue_removeKey(paramName) %}#}
+            {% endfor %}
+        {% endif %}
+        
+        {% set allFacetSelected = 'selected' %}
+        {% set allFacetKey = '' %}
+        {% set allCount = 0 %}
+        {% for facetKey, facet in searchFacet %}
+            {% set allCount = allCount + facet.count %}
+            {% set allFacetKey = facet.facetKey %}
+            {% if(facet.selected) %}
+                 {% set allFacetSelected = '' %}
+            {% endif %}
+       {% endfor %}
+        <li>
+            <a class="radio_facet {{allFacetSelected}}" href="{{ path(route, params) }}">Facet Label ({{allCount}})</a>
+        </li>
+        {% for facetKey, facet in searchFacet %}
+             {% if facet.entity %}
+                {% set facetTitle = facet.entity.title %}
+                {% set facetValue = facet.entity.id %}
+             {%else%}
+                {% set facetTitle = facet.label %}
+                {% set facetValue = facet.value %}
+             {% endif %}
+        
+            {% if(facet.selected) %}
+                 <li><a class="radio_facet selected" href="{{ path(route, params | merge({ (facet.facetKey): facetValue })) }}">{{facetTitle}} ({{facet.count}})</a></li>
+            {% else %}
+                 <li><a class="radio_facet" href="{{ path(route, params | merge({ (facet.facetKey): facetValue })) }}">{{facetTitle}} ({{facet.count}})</a></li>
+            {% endif %}
+              
+        {% endfor %}
+    </ul>
+{% endspaceless %}
+{% endblock facet_radio_horizontal_widget %}
+
+{% block facet_checkbox_widget %}
+{% spaceless %}
+    <div class="section-container accordion keyskills-wrapper" data-section="accordion">
+        {% if(active) %}
+            <section class="active">
+        {% else %}
+            <section class="">
+        {% endif %}
+          <p class="title" data-section-title><a href="#">{{labelFacet}}</a></p>
+             <div class="content" data-section-content>
+                     
+                     <ul class="no-bullet">
+                     
+                        {% for facetKey, facet in searchFacet %}
+                             {% if facet.entity %}
+                                {% if(facet.selected) %}
+                                    <li><a class="f_label selected" href="{{ path(route, params | merge({ (facet.facetKey): facet.value })) }}">{{facet.entity.title}} ({{facet.count}})</a></li>
+                                {% else %}
+                                    <li><a  class="f_label" href="{{ path(route, params | merge({ (facet.facetKey): facet.value })) }}">{{facet.entity.title}} ({{facet.count}})</a></li>
+                                {% endif %}
+                              {% endif %}
+                        {% endfor %}
+                    </ul>
+            </div>
+         </section>
+        </div>
+
+{% endspaceless %}
+{% endblock facet_checkbox_widget %}
