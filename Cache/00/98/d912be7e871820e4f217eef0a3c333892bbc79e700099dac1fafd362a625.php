@@ -143,7 +143,7 @@ class __TwigTemplate_0098d912be7e871820e4f217eef0a3c333892bbc79e700099dac1fafd36
     <div class=\"row\">
         <div class=\"large-2 columns\">
             <div class=\"facets\">
-                    
+                   
             ";
         // line 69
         $context['_parent'] = (array) $context;
@@ -163,30 +163,42 @@ class __TwigTemplate_0098d912be7e871820e4f217eef0a3c333892bbc79e700099dac1fafd36
         }
         foreach ($context['_seq'] as $context["labelFacet"] => $context["searchFacet"]) {
             // line 70
-            echo "                ";
-            if ((twig_length_filter($this->env, (isset($context["searchFacet"]) ? $context["searchFacet"] : null)) > 0)) {
-                // line 71
-                echo "                    ";
-                if ((((isset($context["labelFacet"]) ? $context["labelFacet"] : null) == "strand") || ((isset($context["labelFacet"]) ? $context["labelFacet"] : null) == "strandunit"))) {
-                    // line 72
-                    echo "                        ";
-                    $context["active"] = "";
-                    // line 73
-                    echo "                    ";
-                } else {
-                    // line 74
-                    echo "                        ";
-                    $context["active"] = "true";
-                    // line 75
-                    echo "                    ";
-                }
-                // line 76
-                echo "                    ";
-                $this->displayBlock("facet_checkbox_widget", $context, $blocks);
-                echo "
+            echo "
                 ";
+            // line 71
+            if ((twig_in_filter((isset($context["labelFacet"]) ? $context["labelFacet"] : null), twig_get_array_keys_filter((isset($context["defaultConfig"]) ? $context["defaultConfig"] : null))) && (twig_length_filter($this->env, twig_split_filter($this->getAttribute((isset($context["defaultConfig"]) ? $context["defaultConfig"] : null), (isset($context["labelFacet"]) ? $context["labelFacet"] : null), array(), "array"), ",")) <= 1))) {
+                // line 72
+                echo "                
+                ";
+            } else {
+                // line 74
+                echo "                    ";
+                if ((twig_length_filter($this->env, (isset($context["searchFacet"]) ? $context["searchFacet"] : null)) > 0)) {
+                    // line 75
+                    echo "                        ";
+                    if ((((isset($context["labelFacet"]) ? $context["labelFacet"] : null) == "strand") || ((isset($context["labelFacet"]) ? $context["labelFacet"] : null) == "strandunit"))) {
+                        // line 76
+                        echo "                            ";
+                        $context["active"] = "";
+                        // line 77
+                        echo "                        ";
+                    } else {
+                        // line 78
+                        echo "                            ";
+                        $context["active"] = "true";
+                        // line 79
+                        echo "                        ";
+                    }
+                    // line 80
+                    echo "                        ";
+                    $this->displayBlock("facet_checkbox_widget", $context, $blocks);
+                    echo "
+                    ";
+                }
+                // line 82
+                echo "                ";
             }
-            // line 78
+            // line 83
             echo "            ";
             ++$context['loop']['index0'];
             ++$context['loop']['index'];
@@ -200,7 +212,7 @@ class __TwigTemplate_0098d912be7e871820e4f217eef0a3c333892bbc79e700099dac1fafd36
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['labelFacet'], $context['searchFacet'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 79
+        // line 84
         echo "            </div>
         </div>   
         <div class=\"large-10 columns\">
@@ -213,7 +225,7 @@ class __TwigTemplate_0098d912be7e871820e4f217eef0a3c333892bbc79e700099dac1fafd36
                 </thead>
                 <tbody>
                 ";
-        // line 90
+        // line 95
         $context['_parent'] = (array) $context;
         $context['_seq'] = twig_ensure_traversable($this->getAttribute((isset($context["results"]) ? $context["results"] : null), "results"));
         $context['loop'] = array(
@@ -230,17 +242,17 @@ class __TwigTemplate_0098d912be7e871820e4f217eef0a3c333892bbc79e700099dac1fafd36
             $context['loop']['last'] = 1 === $length;
         }
         foreach ($context['_seq'] as $context["_key"] => $context["resource"]) {
-            // line 91
+            // line 96
             echo "                    <tr>
                         <td  class=\"id_column\">";
-            // line 92
+            // line 97
             echo twig_escape_filter($this->env, $this->getAttribute((isset($context["resource"]) ? $context["resource"] : null), "id"), "html", null, true);
             echo "</td>
                         <td>
                                 ";
-            // line 94
+            // line 99
             $this->env->loadTemplate("resource.widget.twig")->display($context);
-            // line 95
+            // line 100
             echo "                        </td>
                     </tr>
                 ";
@@ -256,7 +268,7 @@ class __TwigTemplate_0098d912be7e871820e4f217eef0a3c333892bbc79e700099dac1fafd36
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['resource'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 98
+        // line 103
         echo "                </tbody>
             </table>
         </div> 
@@ -266,59 +278,59 @@ class __TwigTemplate_0098d912be7e871820e4f217eef0a3c333892bbc79e700099dac1fafd36
 ";
     }
 
-    // line 108
+    // line 113
     public function block_facet_radio_widget($context, array $blocks = array())
     {
-        // line 109
+        // line 114
         ob_start();
-        // line 110
+        // line 115
         echo "    <div class=\"section-container accordion keyskills-wrapper\" data-section=\"accordion\">
          <section class=\"active\">
           <p class=\"title\" data-section-title><a href=\"#\">";
-        // line 112
+        // line 117
         echo twig_escape_filter($this->env, (isset($context["labelFacet"]) ? $context["labelFacet"] : null), "html", null, true);
         echo "</a></p>
              <div class=\"content\" data-section-content>
                     ";
-        // line 114
+        // line 119
         $context["allFacetSelected"] = "selected";
-        // line 115
+        // line 120
         echo "                    ";
         $context["allFacetKey"] = "";
-        // line 116
+        // line 121
         echo "                    ";
         $context["allCount"] = 0;
-        // line 117
+        // line 122
         echo "                    ";
         $context['_parent'] = (array) $context;
         $context['_seq'] = twig_ensure_traversable((isset($context["searchFacet"]) ? $context["searchFacet"] : null));
         foreach ($context['_seq'] as $context["facetKey"] => $context["facet"]) {
-            // line 118
+            // line 123
             echo "                        ";
             $context["allCount"] = ((isset($context["allCount"]) ? $context["allCount"] : null) + $this->getAttribute((isset($context["facet"]) ? $context["facet"] : null), "count"));
-            // line 119
+            // line 124
             echo "                        ";
             $context["allFacetKey"] = $this->getAttribute((isset($context["facet"]) ? $context["facet"] : null), "facetKey");
-            // line 120
+            // line 125
             echo "                        ";
             if ($this->getAttribute((isset($context["facet"]) ? $context["facet"] : null), "selected")) {
-                // line 121
+                // line 126
                 echo "                             ";
                 $context["allFacetSelected"] = "";
-                // line 122
+                // line 127
                 echo "                        ";
             }
-            // line 123
+            // line 128
             echo "                   ";
         }
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['facetKey'], $context['facet'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 124
+        // line 129
         echo "                     <ul class=\"no-bullet\">
                          <li>
                             <a class=\"radio_facet ";
-        // line 126
+        // line 131
         echo twig_escape_filter($this->env, (isset($context["allFacetSelected"]) ? $context["allFacetSelected"] : null), "html", null, true);
         echo "\" href=\"";
         echo twig_escape_filter($this->env, call_user_func_array($this->env->getFunction('path')->getCallable(), array((isset($context["route"]) ? $context["route"] : null), (isset($context["params"]) ? $context["params"] : null))), "html", null, true);
@@ -327,17 +339,17 @@ class __TwigTemplate_0098d912be7e871820e4f217eef0a3c333892bbc79e700099dac1fafd36
         echo ")</a>
                         </li>
                         ";
-        // line 128
+        // line 133
         $context['_parent'] = (array) $context;
         $context['_seq'] = twig_ensure_traversable((isset($context["searchFacet"]) ? $context["searchFacet"] : null));
         foreach ($context['_seq'] as $context["facetKey"] => $context["facet"]) {
-            // line 129
+            // line 134
             echo "                             ";
             if ($this->getAttribute((isset($context["facet"]) ? $context["facet"] : null), "entity")) {
-                // line 130
+                // line 135
                 echo "                                 ";
                 if ($this->getAttribute((isset($context["facet"]) ? $context["facet"] : null), "selected")) {
-                    // line 131
+                    // line 136
                     echo "                                     <li><a class=\"radio_facet selected\" href=\"";
                     echo twig_escape_filter($this->env, call_user_func_array($this->env->getFunction('path')->getCallable(), array((isset($context["route"]) ? $context["route"] : null), twig_array_merge((isset($context["params"]) ? $context["params"] : null), array($this->getAttribute((isset($context["facet"]) ? $context["facet"] : null), "facetKey") => $this->getAttribute($this->getAttribute((isset($context["facet"]) ? $context["facet"] : null), "entity"), "id"))))), "html", null, true);
                     echo "\">";
@@ -347,7 +359,7 @@ class __TwigTemplate_0098d912be7e871820e4f217eef0a3c333892bbc79e700099dac1fafd36
                     echo ")</a></li>
                                 ";
                 } else {
-                    // line 133
+                    // line 138
                     echo "                                     <li><a class=\"radio_facet\" href=\"";
                     echo twig_escape_filter($this->env, call_user_func_array($this->env->getFunction('path')->getCallable(), array((isset($context["route"]) ? $context["route"] : null), twig_array_merge((isset($context["params"]) ? $context["params"] : null), array($this->getAttribute((isset($context["facet"]) ? $context["facet"] : null), "facetKey") => $this->getAttribute($this->getAttribute((isset($context["facet"]) ? $context["facet"] : null), "entity"), "id"))))), "html", null, true);
                     echo "\">";
@@ -357,16 +369,16 @@ class __TwigTemplate_0098d912be7e871820e4f217eef0a3c333892bbc79e700099dac1fafd36
                     echo ")</a></li>
                                 ";
                 }
-                // line 135
+                // line 140
                 echo "                              ";
             }
-            // line 136
+            // line 141
             echo "                        ";
         }
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['facetKey'], $context['facet'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 137
+        // line 142
         echo "                    </ul>
             </div>
          </section>
@@ -376,80 +388,80 @@ class __TwigTemplate_0098d912be7e871820e4f217eef0a3c333892bbc79e700099dac1fafd36
         echo trim(preg_replace('/>\s+</', '><', ob_get_clean()));
     }
 
-    // line 145
+    // line 150
     public function block_facet_radio_horizontal_widget($context, array $blocks = array())
     {
-        // line 146
+        // line 151
         ob_start();
-        // line 147
+        // line 152
         echo "    <ul class=\"inline-list filters\">
         <li><strong>Label Facet</strong></li>
 
         ";
-        // line 150
+        // line 155
         if (array_key_exists("removeParams", $context)) {
-            // line 151
+            // line 156
             echo "            ";
             $context['_parent'] = (array) $context;
             $context['_seq'] = twig_ensure_traversable((isset($context["removeParams"]) ? $context["removeParams"] : null));
             foreach ($context['_seq'] as $context["_key"] => $context["paramName"]) {
-                // line 152
+                // line 157
                 echo "                
                 ";
-                // line 153
+                // line 158
                 $context["params"] = (isset($context["params"]) ? $context["params"] : null);
-                // line 154
+                // line 159
                 echo "                ";
-                // line 155
+                // line 160
                 echo "            ";
             }
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_iterated'], $context['_key'], $context['paramName'], $context['_parent'], $context['loop']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 156
+            // line 161
             echo "        ";
         }
-        // line 157
+        // line 162
         echo "        
         ";
-        // line 158
+        // line 163
         $context["allFacetSelected"] = "selected";
-        // line 159
+        // line 164
         echo "        ";
         $context["allFacetKey"] = "";
-        // line 160
+        // line 165
         echo "        ";
         $context["allCount"] = 0;
-        // line 161
+        // line 166
         echo "        ";
         $context['_parent'] = (array) $context;
         $context['_seq'] = twig_ensure_traversable((isset($context["searchFacet"]) ? $context["searchFacet"] : null));
         foreach ($context['_seq'] as $context["facetKey"] => $context["facet"]) {
-            // line 162
+            // line 167
             echo "            ";
             $context["allCount"] = ((isset($context["allCount"]) ? $context["allCount"] : null) + $this->getAttribute((isset($context["facet"]) ? $context["facet"] : null), "count"));
-            // line 163
+            // line 168
             echo "            ";
             $context["allFacetKey"] = $this->getAttribute((isset($context["facet"]) ? $context["facet"] : null), "facetKey");
-            // line 164
+            // line 169
             echo "            ";
             if ($this->getAttribute((isset($context["facet"]) ? $context["facet"] : null), "selected")) {
-                // line 165
+                // line 170
                 echo "                 ";
                 $context["allFacetSelected"] = "";
-                // line 166
+                // line 171
                 echo "            ";
             }
-            // line 167
+            // line 172
             echo "       ";
         }
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['facetKey'], $context['facet'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 168
+        // line 173
         echo "        <li>
             <a class=\"radio_facet ";
-        // line 169
+        // line 174
         echo twig_escape_filter($this->env, (isset($context["allFacetSelected"]) ? $context["allFacetSelected"] : null), "html", null, true);
         echo "\" href=\"";
         echo twig_escape_filter($this->env, call_user_func_array($this->env->getFunction('path')->getCallable(), array((isset($context["route"]) ? $context["route"] : null), (isset($context["params"]) ? $context["params"] : null))), "html", null, true);
@@ -458,37 +470,37 @@ class __TwigTemplate_0098d912be7e871820e4f217eef0a3c333892bbc79e700099dac1fafd36
         echo ")</a>
         </li>
         ";
-        // line 171
+        // line 176
         $context['_parent'] = (array) $context;
         $context['_seq'] = twig_ensure_traversable((isset($context["searchFacet"]) ? $context["searchFacet"] : null));
         foreach ($context['_seq'] as $context["facetKey"] => $context["facet"]) {
-            // line 172
+            // line 177
             echo "             ";
             if ($this->getAttribute((isset($context["facet"]) ? $context["facet"] : null), "entity")) {
-                // line 173
+                // line 178
                 echo "                ";
                 $context["facetTitle"] = $this->getAttribute($this->getAttribute((isset($context["facet"]) ? $context["facet"] : null), "entity"), "title");
-                // line 174
+                // line 179
                 echo "                ";
                 $context["facetValue"] = $this->getAttribute($this->getAttribute((isset($context["facet"]) ? $context["facet"] : null), "entity"), "id");
-                // line 175
+                // line 180
                 echo "             ";
             } else {
-                // line 176
+                // line 181
                 echo "                ";
                 $context["facetTitle"] = $this->getAttribute((isset($context["facet"]) ? $context["facet"] : null), "label");
-                // line 177
+                // line 182
                 echo "                ";
                 $context["facetValue"] = $this->getAttribute((isset($context["facet"]) ? $context["facet"] : null), "value");
-                // line 178
+                // line 183
                 echo "             ";
             }
-            // line 179
+            // line 184
             echo "        
             ";
-            // line 180
+            // line 185
             if ($this->getAttribute((isset($context["facet"]) ? $context["facet"] : null), "selected")) {
-                // line 181
+                // line 186
                 echo "                 <li><a class=\"radio_facet selected\" href=\"";
                 echo twig_escape_filter($this->env, call_user_func_array($this->env->getFunction('path')->getCallable(), array((isset($context["route"]) ? $context["route"] : null), twig_array_merge((isset($context["params"]) ? $context["params"] : null), array($this->getAttribute((isset($context["facet"]) ? $context["facet"] : null), "facetKey") => (isset($context["facetValue"]) ? $context["facetValue"] : null))))), "html", null, true);
                 echo "\">";
@@ -498,7 +510,7 @@ class __TwigTemplate_0098d912be7e871820e4f217eef0a3c333892bbc79e700099dac1fafd36
                 echo ")</a></li>
             ";
             } else {
-                // line 183
+                // line 188
                 echo "                 <li><a class=\"radio_facet\" href=\"";
                 echo twig_escape_filter($this->env, call_user_func_array($this->env->getFunction('path')->getCallable(), array((isset($context["route"]) ? $context["route"] : null), twig_array_merge((isset($context["params"]) ? $context["params"] : null), array($this->getAttribute((isset($context["facet"]) ? $context["facet"] : null), "facetKey") => (isset($context["facetValue"]) ? $context["facetValue"] : null))))), "html", null, true);
                 echo "\">";
@@ -508,38 +520,38 @@ class __TwigTemplate_0098d912be7e871820e4f217eef0a3c333892bbc79e700099dac1fafd36
                 echo ")</a></li>
             ";
             }
-            // line 185
+            // line 190
             echo "              
         ";
         }
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['facetKey'], $context['facet'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 187
+        // line 192
         echo "    </ul>
 ";
         echo trim(preg_replace('/>\s+</', '><', ob_get_clean()));
     }
 
-    // line 191
+    // line 196
     public function block_facet_checkbox_widget($context, array $blocks = array())
     {
-        // line 192
+        // line 197
         ob_start();
-        // line 193
+        // line 198
         echo "    <div class=\"section-container accordion keyskills-wrapper\" data-section=\"accordion\">
         ";
-        // line 194
+        // line 199
         if ((isset($context["active"]) ? $context["active"] : null)) {
-            // line 195
+            // line 200
             echo "            <section class=\"active\">
         ";
         } else {
-            // line 197
+            // line 202
             echo "            <section class=\"\">
         ";
         }
-        // line 199
+        // line 204
         echo "          <p class=\"title\" data-section-title><a href=\"#\">";
         echo twig_escape_filter($this->env, (isset($context["labelFacet"]) ? $context["labelFacet"] : null), "html", null, true);
         echo "</a></p>
@@ -548,17 +560,17 @@ class __TwigTemplate_0098d912be7e871820e4f217eef0a3c333892bbc79e700099dac1fafd36
                      <ul class=\"no-bullet\">
                      
                         ";
-        // line 204
+        // line 209
         $context['_parent'] = (array) $context;
         $context['_seq'] = twig_ensure_traversable((isset($context["searchFacet"]) ? $context["searchFacet"] : null));
         foreach ($context['_seq'] as $context["facetKey"] => $context["facet"]) {
-            // line 205
+            // line 210
             echo "                             ";
             if ($this->getAttribute((isset($context["facet"]) ? $context["facet"] : null), "entity")) {
-                // line 206
+                // line 211
                 echo "                                ";
                 if ($this->getAttribute((isset($context["facet"]) ? $context["facet"] : null), "selected")) {
-                    // line 207
+                    // line 212
                     echo "                                    <li><a class=\"f_label selected\" href=\"";
                     echo twig_escape_filter($this->env, call_user_func_array($this->env->getFunction('path')->getCallable(), array((isset($context["route"]) ? $context["route"] : null), twig_array_merge((isset($context["params"]) ? $context["params"] : null), array($this->getAttribute((isset($context["facet"]) ? $context["facet"] : null), "facetKey") => $this->getAttribute((isset($context["facet"]) ? $context["facet"] : null), "value"))))), "html", null, true);
                     echo "\">";
@@ -568,7 +580,7 @@ class __TwigTemplate_0098d912be7e871820e4f217eef0a3c333892bbc79e700099dac1fafd36
                     echo ")</a></li>
                                 ";
                 } else {
-                    // line 209
+                    // line 214
                     echo "                                    <li><a  class=\"f_label\" href=\"";
                     echo twig_escape_filter($this->env, call_user_func_array($this->env->getFunction('path')->getCallable(), array((isset($context["route"]) ? $context["route"] : null), twig_array_merge((isset($context["params"]) ? $context["params"] : null), array($this->getAttribute((isset($context["facet"]) ? $context["facet"] : null), "facetKey") => $this->getAttribute((isset($context["facet"]) ? $context["facet"] : null), "value"))))), "html", null, true);
                     echo "\">";
@@ -578,16 +590,16 @@ class __TwigTemplate_0098d912be7e871820e4f217eef0a3c333892bbc79e700099dac1fafd36
                     echo ")</a></li>
                                 ";
                 }
-                // line 211
+                // line 216
                 echo "                              ";
             }
-            // line 212
+            // line 217
             echo "                        ";
         }
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['facetKey'], $context['facet'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 213
+        // line 218
         echo "                    </ul>
             </div>
          </section>
@@ -609,6 +621,6 @@ class __TwigTemplate_0098d912be7e871820e4f217eef0a3c333892bbc79e700099dac1fafd36
 
     public function getDebugInfo()
     {
-        return array (  591 => 213,  585 => 212,  582 => 211,  572 => 209,  562 => 207,  559 => 206,  556 => 205,  552 => 204,  543 => 199,  539 => 197,  535 => 195,  533 => 194,  530 => 193,  528 => 192,  525 => 191,  519 => 187,  512 => 185,  502 => 183,  492 => 181,  490 => 180,  487 => 179,  484 => 178,  481 => 177,  478 => 176,  475 => 175,  472 => 174,  469 => 173,  466 => 172,  462 => 171,  453 => 169,  450 => 168,  444 => 167,  441 => 166,  438 => 165,  435 => 164,  432 => 163,  429 => 162,  424 => 161,  421 => 160,  418 => 159,  416 => 158,  413 => 157,  410 => 156,  404 => 155,  402 => 154,  400 => 153,  397 => 152,  392 => 151,  390 => 150,  385 => 147,  383 => 146,  380 => 145,  370 => 137,  364 => 136,  361 => 135,  351 => 133,  341 => 131,  338 => 130,  335 => 129,  331 => 128,  322 => 126,  318 => 124,  312 => 123,  309 => 122,  306 => 121,  303 => 120,  300 => 119,  297 => 118,  292 => 117,  289 => 116,  286 => 115,  284 => 114,  279 => 112,  275 => 110,  273 => 109,  270 => 108,  260 => 98,  244 => 95,  242 => 94,  237 => 92,  234 => 91,  217 => 90,  204 => 79,  190 => 78,  184 => 76,  181 => 75,  178 => 74,  175 => 73,  172 => 72,  169 => 71,  166 => 70,  149 => 69,  135 => 60,  129 => 59,  125 => 57,  122 => 56,  119 => 55,  116 => 54,  113 => 53,  110 => 52,  107 => 51,  104 => 50,  102 => 49,  91 => 41,  87 => 39,  82 => 36,  61 => 19,  58 => 18,  55 => 17,  52 => 16,  49 => 15,  47 => 14,  34 => 3,  31 => 2,);
+        return array (  603 => 218,  597 => 217,  594 => 216,  584 => 214,  574 => 212,  571 => 211,  568 => 210,  564 => 209,  555 => 204,  551 => 202,  547 => 200,  545 => 199,  542 => 198,  540 => 197,  537 => 196,  531 => 192,  524 => 190,  514 => 188,  504 => 186,  502 => 185,  499 => 184,  496 => 183,  493 => 182,  490 => 181,  487 => 180,  484 => 179,  481 => 178,  478 => 177,  474 => 176,  465 => 174,  462 => 173,  456 => 172,  453 => 171,  450 => 170,  447 => 169,  444 => 168,  441 => 167,  436 => 166,  433 => 165,  430 => 164,  428 => 163,  425 => 162,  422 => 161,  416 => 160,  414 => 159,  412 => 158,  409 => 157,  404 => 156,  402 => 155,  397 => 152,  395 => 151,  392 => 150,  382 => 142,  376 => 141,  373 => 140,  363 => 138,  353 => 136,  350 => 135,  347 => 134,  343 => 133,  334 => 131,  330 => 129,  324 => 128,  321 => 127,  318 => 126,  315 => 125,  312 => 124,  309 => 123,  304 => 122,  301 => 121,  298 => 120,  296 => 119,  291 => 117,  287 => 115,  285 => 114,  282 => 113,  272 => 103,  256 => 100,  254 => 99,  249 => 97,  246 => 96,  229 => 95,  216 => 84,  202 => 83,  199 => 82,  193 => 80,  190 => 79,  187 => 78,  184 => 77,  181 => 76,  178 => 75,  175 => 74,  171 => 72,  169 => 71,  166 => 70,  149 => 69,  135 => 60,  129 => 59,  125 => 57,  122 => 56,  119 => 55,  116 => 54,  113 => 53,  110 => 52,  107 => 51,  104 => 50,  102 => 49,  91 => 41,  87 => 39,  82 => 36,  61 => 19,  58 => 18,  55 => 17,  52 => 16,  49 => 15,  47 => 14,  34 => 3,  31 => 2,);
     }
 }

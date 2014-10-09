@@ -65,15 +65,20 @@
     <div class="row">
         <div class="large-2 columns">
             <div class="facets">
-                    
+                   
             {% for labelFacet, searchFacet in results.facets %}
-                {% if searchFacet|length > 0 %}
-                    {% if(labelFacet == 'strand' ) or (labelFacet == 'strandunit' )%}
-                        {% set active = '' %}
-                    {% else %}
-                        {% set active = 'true' %}
+
+                {% if (labelFacet in defaultConfig|keys) and (defaultConfig[labelFacet]|split(',')|length <= 1) %}
+                
+                {% else %}
+                    {% if searchFacet|length > 0 %}
+                        {% if(labelFacet == 'strand' ) or (labelFacet == 'strandunit' )%}
+                            {% set active = '' %}
+                        {% else %}
+                            {% set active = 'true' %}
+                        {% endif %}
+                        {{ block('facet_checkbox_widget') }}
                     {% endif %}
-                    {{ block('facet_checkbox_widget') }}
                 {% endif %}
             {% endfor %}
             </div>

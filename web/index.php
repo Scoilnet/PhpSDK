@@ -14,6 +14,8 @@ class scoilnetExample {
      */
     protected $scoilnetClient;
     
+    protected $defaultConfig;
+    
    /**
     *  Creates the Scoilnet OAuth client. You will need to add the following values 
     *  - client_id: (required) The application ID.
@@ -27,6 +29,8 @@ class scoilnetExample {
                 "api_key" => "d0d588d94c05b3e1e4e37159f1cf5458f645193f5b45f092874d5747628ce8a3",
                 ];
         
+        $this->defaultConfig = array('school_discipline' => '40,50');
+         
         $this->scoilnetClient = new \OAuth2\ScoilnetClient($config);
         
     }
@@ -37,7 +41,9 @@ class scoilnetExample {
      */
     protected function search(){
         
-        $params = $this->getParams();
+        //$params = $this->getParams();
+        $params = array_merge($this->getParams(),$this->defaultConfig );
+        
         $response = $this->scoilnetClient->search($params);
         if($response['success'] == false){
             print_r($response);
@@ -78,6 +84,8 @@ class scoilnetExample {
         //Load the twig template file 
         $template = $twig->loadTemplate('index.html');
         
+       
+        
         //Runs the search and gets the results
         $results = $this->search();
 
@@ -88,7 +96,8 @@ class scoilnetExample {
         echo $template->render(array('results' => $results
                 ,'params'=>$this->getParams()
                 ,'route' => '/index.php'
-                ,'currentPage' => $page)
+                ,'currentPage' => $page
+                ,'defaultConfig' =>$this->defaultConfig)
                 );
     }
 
@@ -98,9 +107,12 @@ class scoilnetExample {
      */
     protected function getParams(){
         $params = array();
-        foreach(filter_input_array(INPUT_GET) as $paramName => $paramValue){
-            $params[$paramName] = $paramValue;
+        if(is_array(filter_input_array(INPUT_GET))){
+            foreach(filter_input_array(INPUT_GET) as $paramName => $paramValue){
+                $params[$paramName] = $paramValue;
+            }
         }
+       
         return $params;
     }
     
