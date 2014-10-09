@@ -29,8 +29,8 @@ class scoilnetExample {
                 "api_key" => "d0d588d94c05b3e1e4e37159f1cf5458f645193f5b45f092874d5747628ce8a3",
                 ];
         
-        $this->defaultConfig = array('school_discipline' => '40,50');
-         
+       // $this->defaultConfig = array('school_discipline' => '40,50');
+        $this->defaultConfig = array(); 
         $this->scoilnetClient = new \OAuth2\ScoilnetClient($config);
         
     }
