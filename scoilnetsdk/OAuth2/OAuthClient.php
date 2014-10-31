@@ -1,6 +1,6 @@
 <?php
 
-namespace ScolinetSDK\OAuth2;
+namespace ScoilnetSDK\OAuth2;
 
 /**
  * OAuth2.0 draft v10 client-side implementation.

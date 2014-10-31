@@ -1,5 +1,5 @@
 <?php
-namespace ScolinetSDK;
+namespace ScoilnetSDK;
 
 require_once('OAuth2/OAuth2Exception.php');
 require_once('OAuth2/OAuthClient.php');
@@ -9,7 +9,7 @@ require_once('OAuth2/OAuthClient.php');
  *
  * @author paul schweppe
  */
-class ScoilnetClient extends OAuthClient{
+class ScoilnetClient extends OAuth2\OAuthClient{
     
     protected $cacheFile = '';
     
