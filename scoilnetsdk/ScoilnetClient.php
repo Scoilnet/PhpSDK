@@ -1,8 +1,8 @@
 <?php
-namespace OAuth2;
+namespace ScolinetSDK;
 
-require_once('OAuth2Exception.php');
-require_once('OAuthClient.php');
+require_once('OAuth2/OAuth2Exception.php');
+require_once('OAuth2/OAuthClient.php');
 
 /**
  * Extends OAuthClient for Scoilnet grant type.s
