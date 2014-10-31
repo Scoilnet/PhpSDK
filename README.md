@@ -38,11 +38,10 @@ For best performance a cache folder should be created that php can write too, bu
 To use the api you will need to login too scoilnet and obtain a client id, client secret key and api key. Go to the [scoilnet api section] (https://www.scoilnet.ie/scoilnet-api) for more information
 on how to obtain the application keys.
 
-4. Configuration
+### Step 4: Configuration
 For all requests, you must initialize the SDK with your Client ID, Client Secret and API Key.
 
-
-
+``` php
     require '../scoilnetsdk/ScoilnetClient.php';
 
     $config = [
@@ -62,4 +61,4 @@ For all requests, you must initialize the SDK with your Client ID, Client Secret
     //Make a search request
     $response = $this->scoilnetClient->search($params);
     
-
+```
