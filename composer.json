@@ -16,7 +16,7 @@
     ],
     "autoload": {
             "psr-4": {
-                "scoilnet\\": "scoilnetsdk/"
+                "OAuth2\\": "scoilnetsdk/"
             }
     }
 }
