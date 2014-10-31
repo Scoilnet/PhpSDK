@@ -5,24 +5,21 @@ Scoilnet's API allows you to easily search resources from scoilnets database on 
 
 For full documentation, see [Scoilnet's developer documentation](https://www.scoilnet.ie/scoilnet-api/documentation)
 
-Usage
+Also check out the [Scoilnet PHP SDK Demo](https://github.com/Scoilnet/PhpSDKDemo) that you can install on your own server.
+
+Installation
 -----
-
-In addition to the samples below, we have included a very basic demo application in the `demo` directory. The demo uses 
-Twig's templating engine to display the results. 
-
-## Installation
 
 Installation is a quick 4 step process:
 
 1. Install ScoilnetSDK
 2. Create your cache folder
 3. Get API authentication keys from Scoilnet
-4. Configuration
+4. Configuration search paramaters.
 
 ### Step 1: Install ScoilnetSDK
 The preferred way to install this library is to rely on [Composer](http://getcomposer.org).
-Just check on [Packagist](http://packagist.org/packages/) the version you want to install (in the following example, we used "dev-master") and add it to your `composer.json`:
+Just check on [Packagist](https://packagist.org/packages/scoilnet/php-sdk) the version you want to install (in the following example, we used "dev-master") and add it to your `composer.json`:
 ``` js
 {
     "require": {
@@ -39,12 +36,12 @@ For best performance a cache folder should be created that php can write too, bu
 
 ### Step 3:Get API authentication keys from Scoilnet
 To use the api you will need to login too scoilnet and obtain a client id, client secret key and api key. Go to the [scoilnet api section] (https://www.scoilnet.ie/scoilnet-api) for more information
-on obtain application keys.
+on how to obtain the application keys.
 
 4. Configuration
 For all requests, you must initialize the SDK with your Client ID, Client Secret and API Key.
 
-<?php
+    <?php
     require '../scoilnetsdk/ScoilnetClient.php';
 
     $config = [
@@ -53,10 +50,10 @@ For all requests, you must initialize the SDK with your Client ID, Client Secret
                 "api_key" => "[YOUR API KEY]",
                 ];
         
-    $this->scoilnetClient = new \OAuth2\ScoilnetClient($config);
+    $this->scoilnetClient = new \ScoilnetSDK\ScoilnetClient($config);
     
     //Set the cache folder that you created in step3
-    $this->scoilnetClient->setCacheFile("/var/www/searchAPI/sdk/Cache/");
+    $this->scoilnetClient->setCacheFile("/var/www/searchAPI/Cache/");
 
     //See [scoilnet search documentation] (https://www.scoilnet.ie/scoilnet-api/documentation) for list of possible paramater options
     $params = array();
@@ -64,3 +61,4 @@ For all requests, you must initialize the SDK with your Client ID, Client Secret
     //Make a search request
     $response = $this->scoilnetClient->search($params);
     
+
