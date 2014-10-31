@@ -41,7 +41,8 @@ on how to obtain the application keys.
 4. Configuration
 For all requests, you must initialize the SDK with your Client ID, Client Secret and API Key.
 
-    <?php
+
+
     require '../scoilnetsdk/ScoilnetClient.php';
 
     $config = [
