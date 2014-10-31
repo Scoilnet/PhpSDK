@@ -3,7 +3,7 @@ Scoilnet PHP SDK
 
 Scoilnet's API allows you to easily search resources from scoilnets database on you own site.
 
-For full documentation, see [Scoilnet's developer documentation](https://www.scoilnet.com/scoilnet-api/documentation)
+For full documentation, see [Scoilnet's developer documentation](https://www.scoilnet.ie/scoilnet-api/documentation)
 
 Usage
 -----

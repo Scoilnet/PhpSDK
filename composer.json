@@ -1,5 +1,5 @@
 {
-    "name": "scoilnet/scoilnetsdk",
+    "name": "Scoilnet/PhpSDK",
     "description": "Scoilnet SDK for PHP",
     "keywords": ["oauth2", "scoilnet", "client"],
     "license": "MIT",
