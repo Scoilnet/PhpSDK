@@ -43,10 +43,10 @@ class PaginationExtension extends \Twig_Extension {
 	 * @return string Text with trailing dot added if there was none before.
 	 * @throws \InvalidArgumentException If {@code $value} is not a string.
 	 */
-	public function paginationFilter($totalPages, $currentPage, $recordsPerPage = 10) {
+	public function paginationFilter($totalPages, $currentPage, $recordsPerPage = 20) {
 //print_r($_SERVER);
                 if($totalPages > 0){
-                    $this->numPages = ($totalPages / $recordsPerPage) |0;
+                    $this->numPages = ceil($totalPages / $recordsPerPage);
                     $this->currentPage = $currentPage;
                     $content = '<ul class="pagination">'.$this->firstPage().$this->prevPage().$this->listPages().$this->nextPage().$this->lastPage().'</ul>';
                 }else{

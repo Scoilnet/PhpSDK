@@ -1,5 +1,5 @@
 <?php
-require '../sdk/ScoilnetClient.php';
+require '../../scoilnetsdk/ScoilnetClient.php';
 
 /**
  * Example of the Scoilnet Search API
@@ -14,7 +14,7 @@ class scoilnetExample {
      */
     protected $scoilnetClient;
     
-    protected $defaultConfig;
+    protected $defaultConfig = array();
     
    /**
     *  Creates the Scoilnet OAuth client. You will need to add the following values 
@@ -24,15 +24,28 @@ class scoilnetExample {
     */
     public function __construct() {
         $config = [
-                "client_id" =>"12_5puyy2aa6nsw0k08coowgc00gc80ss8wow8wgcg8wssso8sgws",
-                "client_secret" =>"4obcqlffjk840swcwcw4g0gkk4gg4848sggswowsgco4wck4w8",
-                "api_key" => "d0d588d94c05b3e1e4e37159f1cf5458f645193f5b45f092874d5747628ce8a3",
+                //demo
+                "authorize_uri" =>"https://scoilnetdev.fluid-rock.com/app_dev.php/oauth/v2/auth",
+                "access_token_uri" =>"https://scoilnetdev.fluid-rock.com/app_dev.php/oauth/v2/token",
+                "base_uri" => "https://scoilnetdev.fluid-rock.com/",
+            
+                "client_id" =>"15_5azt5nz71r0gwc8ck8wg0kg8cskw0okwg08c0ooscwk0ss8g40",
+                "client_secret" =>"2ap47q87tbtw08cg40sc04wgwwgww804kgssck4s404448o0o0",
+                "api_key" => "8a30c194508db411f11531338e1dcbdbd45367189d3c89c5b3c77d8fe64c6b74",
+                
+                //live
+                /*"authorize_uri" =>"https://www.scoilnet.ie/oauth/v2/auth",
+                "access_token_uri" =>"https://www.scoilnet.ie/oauth/v2/token",
+                "base_uri" => "https://www.scoilnet.ie/",
+                "client_id" =>"1_4dk0ukekm0mcs4o8g0cok4kc8sgwg4sw88wswkgw880404kk8s",
+                "client_secret" =>"48o2xyiar14wscow04swc0ww8ogsg8kgo40wcogwgo4wk4c0ss",
+                "api_key" => "71cce7b5a4f7be8bbddff76b88b107052a084bacdf5e704d99ef0940c1746a44",*/
                 ];
         
-       // $this->defaultConfig = array('school_discipline' => '40,50');
-        $this->defaultConfig = array(); 
+        $this->defaultConfig = array('limit' => '20');
+        //$this->defaultConfig = array('school_level'=>'1'); 
         $this->scoilnetClient = new \OAuth2\ScoilnetClient($config);
-        
+        $this->scoilnetClient->setCacheFile($this->applicationDirectory().'/Cache/code.secure');
     }
     
     /**
@@ -60,11 +73,12 @@ class scoilnetExample {
         Twig_Autoloader::register();
         require_once '../TwigExtensions/PaginationExtension.php';
         require_once '../TwigExtensions/GroupCurriculumExtension.php';
-
+        
+        //print_r($_SERVER['DOCUMENT_ROOT']);
         //Start Twig Templating engine
-        $loader = new Twig_Loader_Filesystem('/home/sites/searchAPI/Templates');
+        $loader = new Twig_Loader_Filesystem($this->applicationDirectory().'/demo/Templates');
         $twig = new Twig_Environment($loader, array(
-            'cache' => '/home/sites/searchAPI/Cache',
+            'cache' =>  $this->applicationDirectory().'/demo/Cache',
             'debug' => true,
         ));
 
@@ -116,7 +130,13 @@ class scoilnetExample {
         return $params;
     }
     
-    
+    protected function applicationDirectory(){
+        $webRoot = $_SERVER['DOCUMENT_ROOT'];
+        $folders = explode('/',$webRoot);
+        //array_pop($folders);
+        $newFolders = array_slice($folders, 0, -2);
+        return implode('/', $newFolders);
+    }
     
 }
 
