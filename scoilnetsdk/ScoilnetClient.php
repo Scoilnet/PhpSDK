@@ -15,14 +15,14 @@ class ScoilnetClient extends OAuth2\OAuthClient{
     
     public function __construct($config = array()) {
        
-       $config = array_merge([
+       $config = array_merge(array(
                 "authorize_uri" =>"https://www.scoilnet.ie/app_dev.php/oauth/v2/auth",
                 "access_token_uri" =>"https://www.scoilnet.ie/app_dev.php/oauth/v2/token",
                 "base_uri" => "https://www.scoilnet.ie/",
            
                 "cookie_support" => FALSE,
                 "use_file_cache" => TRUE
-                ],$config);
+                ),$config);
        
        $this->setVariable('base_uri', $config['base_uri']);
        unset($config['base_uri']);
